@@ -22,7 +22,7 @@ if Fs_n ~= Fs_s
 end
 
 % Specify the starting time for noise in seconds
-startTimeofNoise = 10;
+startTimeofNoise = 5;
 
 % Calculate the starting index for adding the disturbance
 FS_Index = round(startTimeofNoise * Fs_s);
