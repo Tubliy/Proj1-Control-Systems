@@ -33,8 +33,7 @@ end
 
 
 % Write the final processed audio to a new file
-output_filename = 'cleanSong.wav'; % Name for the output file
-audiowrite(output_filename, y_filtered, Fs_noisy);
+audiowrite("cleanSong.wav", y_filtered, Fs_noisy);
 
 % Display a message indicating the completion of the process
 disp('Processed audio file with feedback until clean saved as cleanSong.wav');
