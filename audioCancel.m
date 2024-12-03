@@ -3,7 +3,7 @@
 [y_noisy, Fs_noisy] = audioread('noisySong.wav'); % Noisy audio to be cleaned
 
 % Initialize processed audio as the noisy audio
-y_processed = y_noisy;
+y_filtered = y_noisy;
 
 % Set a threshold for residual noise
 threshold = 0.001; 
@@ -15,27 +15,26 @@ residual = inf;
 while residual > threshold
     % Perform FFT  
     Y_clean = fft(y_clean);
-    Y_processed = fft(y_processed);
+    Y_filtered = fft(y_filtered);
 
     % Calculate Transfer Function
-    H = Y_clean ./ Y_processed;
+    H = Y_clean ./ Y_filtered;
 
     % Apply Noise Cancellation
-    Y_processed = H .* fft(y_noisy);
+    Y_filtered= H .* fft(y_noisy);
 
     % Inverse FFT
-    y_processed = ifft(Y_processed);
+    y_filtered = ifft(Y_filtered);
 
     % Calculate residual noise
-    residual = norm(y_processed - y_clean) / norm(y_clean); % Using norm as a measure of difference
+    residual = norm(y_filtered - y_clean) / norm(y_clean); % Using norm as a measure of difference
 end
 
-% Play the final processed audio
-%sound(y_processed, Fs_noisy);
+
 
 % Write the final processed audio to a new file
 output_filename = 'cleanSong.wav'; % Name for the output file
-audiowrite(output_filename, y_processed, Fs_noisy);
+audiowrite(output_filename, y_filtered, Fs_noisy);
 
 % Display a message indicating the completion of the process
-disp('Processed audio file with feedback until clean saved as finalCleanAudio.wav');
+disp('Processed audio file with feedback until clean saved as cleanSong.wav');
