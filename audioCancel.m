@@ -23,7 +23,7 @@ while residual > threshold
     % Apply Noise Cancellation
     Y_filtered= H .* fft(y_noisy);
 
-    % Inverse FFT
+    % Inverse FFT back to time domain.
     y_filtered = ifft(Y_filtered);
 
     % Calculate residual noise
